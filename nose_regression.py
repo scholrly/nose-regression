@@ -51,7 +51,7 @@ class Regression(Plugin):
         Called when a test raises an uncaught exception.  If it shouldn't fail 
         add it to the list of broken tests.
         """
-        if isinstance(test.test, Failure) or not hasattr(test, 'test'):
+        if not hasattr(test, 'test') or isinstance(test.test, Failure):
             return
         setattr(test.test.test, 'failed', True)
         if not test.test.test.__name__ in settings.should_fail and \
